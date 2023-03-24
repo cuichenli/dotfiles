@@ -170,7 +170,7 @@ mason.setup()
 mason_lspconfig.setup({
 	-- list of servers for mason to install
 	ensure_installed = {
-		"sumneko_lua",
+		"lua_ls",
 		"jsonls",
 		"gradle_ls",
 		-- "nil_ls",
@@ -277,7 +277,7 @@ end
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
 -- configure lua server (with special settings)
-lspconfig["sumneko_lua"].setup({
+lspconfig["lua_ls"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 	settings = { -- custom settings for lua
@@ -320,7 +320,7 @@ if not saga_status then
 	return
 end
 
-saga.init_lsp_saga({
+saga.setup({
 	-- keybinds for navigation in lspsaga window
 	move_in_saga = { prev = "<C-k>", next = "<C-j>" },
 	-- use enter to open file with finder

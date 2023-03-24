@@ -110,6 +110,9 @@ in
       "quarkusio/tap"
     ];
     brews = [
+      "gpg2"
+      "pinentry"
+      "pinentry-mac"
       "quarkus"
       "marp-cli"
       "kubefwd"
@@ -118,9 +121,9 @@ in
       "yq"
       "jenv"
       "direnv"
-      "hazelcast"
     ];
     casks = [
+      "mos"
       "macfuse"
       "alt-tab"
       "kdiff3"
@@ -133,7 +136,6 @@ in
       "foobar2000"
       "qqmusic"
       "squirrel"
-      "webex"
       "wechat"
       "maccy"
       "microsoft-edge"
