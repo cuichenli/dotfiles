@@ -37,63 +37,57 @@ opt.splitbelow = true -- split horizontal window to the bottom
 
 opt.iskeyword:append("-") -- consider string-string as whole word
 
-local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-		vim.cmd([[packadd packer.nvim]])
-		return true
-	end
-	return false
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
+require("lazy").setup({
+	"joshdick/onedark.vim",
+	"nvim-lua/plenary.nvim", -- lua functions that many plugins use
 
-require("packer").startup(function(use)
-	use("wbthomason/packer.nvim")
-	use("joshdick/onedark.vim")
-	-- My plugins here
-	-- use 'foo1/bar1.nvim'
-	-- use 'foo2/bar2.nvim'
+	"nvim-lua/plenary.nvim", -- lua functions that many plugins use
 
-	-- essential plugins
-	use("nvim-lua/plenary.nvim") -- lua functions that many plugins use
-
-	use("tpope/vim-surround") -- add, delete, change surroundings (it's awesome)
-	use("inkarkat/vim-ReplaceWithRegister") -- replace with register contents using motion (gr + motion)
+	"tpope/vim-surround", -- add, delete, change surroundings (it's awesome)
+	"inkarkat/vim-ReplaceWithRegister", -- replace with register contents using motion (gr + motion)
 
 	-- commenting with gc
-	use("numToStr/Comment.nvim")
+	"numToStr/Comment.nvim",
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	-- autocompletion
-	use("hrsh7th/nvim-cmp") -- completion plugin
-	use("hrsh7th/cmp-buffer") -- source for text in buffer
-	use("hrsh7th/cmp-path") -- source for file system paths
+	"hrsh7th/nvim-cmp", -- completion plugin
+	"hrsh7th/cmp-buffer", -- source for text in buffer
+	"hrsh7th/cmp-path", -- source for file system paths
 
 	-- snippets
-	use("L3MON4D3/LuaSnip") -- snippet engine
-	use("saadparwaiz1/cmp_luasnip") -- for autocompletion
-	use("rafamadriz/friendly-snippets") -- useful snippets
+	"L3MON4D3/LuaSnip", -- snippet engine
+	"saadparwaiz1/cmp_luasnip", -- for autocompletion
+	"rafamadriz/friendly-snippets", -- useful snippets
 
 	-- managing & installing lsp servers, linters & formatters
-	use("williamboman/mason.nvim") -- in charge of managing lsp servers, linters & formatters
-	use("williamboman/mason-lspconfig.nvim") -- bridges gap b/w mason & lspconfig
+	"williamboman/mason.nvim", -- in charge of managing lsp servers, linters & formatters
+	"williamboman/mason-lspconfig.nvim", -- bridges gap b/w mason & lspconfig
 
 	-- configuring lsp servers
-	use("neovim/nvim-lspconfig") -- easily configure language servers
-	use("hrsh7th/cmp-nvim-lsp") -- for autocompletion
-	use({ "glepnir/lspsaga.nvim", branch = "main" }) -- enhanced lsp uis
+	"neovim/nvim-lspconfig", -- easily configure language servers
+	"hrsh7th/cmp-nvim-lsp", -- for autocompletion
+	{ "glepnir/lspsaga.nvim", branch = "main" }, -- enhanced lsp uis
 
 	-- formatting & linting
-	use("jose-elias-alvarez/null-ls.nvim") -- configure formatters & linters
-	use("jayp0521/mason-null-ls.nvim") -- bridges gap b/w mason & null-ls
-	if packer_bootstrap then
-		require("packer").sync()
-	end
-end)
+	"jose-elias-alvarez/null-ls.nvim", -- configure formatters & linters
+	"jayp0521/mason-null-ls.nvim", -- bridges gap b/w mason & null-ls
+})
 
 local cmdStatus, _ = pcall(vim.cmd, "colorscheme onedark")
 if not cmdStatus then

@@ -44,6 +44,69 @@ in
       programs.git = {
         enable = true;
         ignores = [ ".java-version" ".vscode"];
+        extraConfig = {
+          "includeIf \"gitdir:~/work\"" = {
+            path = "~/.gitconfig-work";
+          };
+          "includeIf \"gitdir:~/personal\"" = {
+            path = "~/.gitconfig-personal";
+          };
+
+          commit = {
+             gpgsign = "true";
+          };
+          core = {
+            pager = "delta";
+	          excludesfile = "/Users/cuichli/.gitignore";
+          };
+          interactive = {
+            difffilter = "delta --color-only";
+          };
+
+          delta = {
+            features = "line-numbers decorations";
+            whitespace-error-style = "22 reverse";
+            plus-style = "syntax #012800";
+            minus-style = "syntax #340001";
+            syntax-theme = "Dracula";
+         };
+
+          decorations = {
+            commit-decoration-style = "bold yellow box ul";
+            file-style = "bold yellow ul";
+            file-decoration-style = "none";
+          };
+
+          gpg = {
+          	program = "gpg2";
+          };
+          pull = {
+          	rebase = "false";
+           };
+         help = {
+          	autoCorrect = "prompt";
+            };
+        merge = {
+          	conflictstyle = "zdiff3";
+             };
+       safe = {
+          	directory = "/Users/cuichli/dev/vde_vmnet";
+              };
+      push = {
+          	autoSetupRemote = "true";
+               };
+     diff = {
+          	algorithm = "histogram";
+                };
+    column = {
+          	ui = "auto";
+                 };
+   branch = {
+          	sort = "-committerdate ";
+          };
+
+
+        };
       };
 
       programs.zsh = {
@@ -117,13 +180,11 @@ in
     ];
     brews = [
       "fluxcd/tap/flux"
-      "istioctl"
       "diffutils"
       "openssl@1.1"
       "openssl"
       "docker-credential-helper"
       "docker-credential-helper-ecr"
-      "kompose"
       "kafka"
       "etcd"
       "docker-compose"
@@ -149,10 +210,10 @@ in
       "tailspin"
     ];
     casks = [
+      "warp"
+      "spotify"
       "bruno"
       "klogg"
-      "monitorcontrol"
-      "v2rayu"
       "itsycal"
       "microsoft-edge"
       "redisinsight"
@@ -196,7 +257,6 @@ in
       atuin
       lnav
       nil
-      rnix-lsp
       kubectx
       vim
       iterm2
