@@ -45,10 +45,10 @@ in
         enable = true;
         ignores = [ ".java-version" ".vscode"];
         extraConfig = {
-          "includeIf \"gitdir:~/work\"" = {
+          "includeIf \"gitdir:~/work/\"" = {
             path = "~/.gitconfig-work";
           };
-          "includeIf \"gitdir:~/personal\"" = {
+          "includeIf \"gitdir:~/personal/\"" = {
             path = "~/.gitconfig-personal";
           };
 
@@ -56,6 +56,7 @@ in
              gpgsign = "true";
           };
           core = {
+            editor = "nvim -f";
             pager = "delta";
 	          excludesfile = "/Users/cuichli/.gitignore";
           };
@@ -128,9 +129,9 @@ in
           k = "kubectl";
         };
         initExtra = ''
-        export JIRA_AUTH_TYPE=bearer
-              export PATH=$HOME/.krew/bin:/run/current-system/sw/bin/:/$HOME/.cargo/bin:$HOME/go/bin:Users/cuichli/.nimble/bin:$PATH
-              export NVM_LAZY_LOAD=true
+          export JIRA_AUTH_TYPE=bearer
+          export PATH=$HOME/.local/bin:$HOME/.krew/bin:/run/current-system/sw/bin/:/$HOME/.cargo/bin:$HOME/go/bin:Users/cuichli/.nimble/bin:$PATH
+          export NVM_LAZY_LOAD=true
           export NVM_LAZY_LOAD_EXTRA_COMMANDS=('vim' 'yarn' 'npm' 'home-manager' 'k' 'kubectl' 'darwin-rebuild')
           export ATUIN_NOBIND="true"
           antigen use ohmyzsh/ohmyzsh
@@ -179,6 +180,7 @@ in
       "fluxcd/tap"
     ];
     brews = [
+      "pipx"
       "fluxcd/tap/flux"
       "diffutils"
       "openssl@1.1"
