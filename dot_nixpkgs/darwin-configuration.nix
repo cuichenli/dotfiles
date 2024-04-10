@@ -1,5 +1,9 @@
 { config, pkgs, lib, xdg, ... }:
 let home = builtins.getEnv "HOME";
+    oldPkgs = import (builtins.fetchTarball {
+        url = "https://github.com/NixOS/nixpkgs/archive/b3a285628a6928f62cdf4d09f4e656f7ecbbcafb.tar.gz";
+    }) {};
+    oldKubectl = oldPkgs.kubectl;
 in
 {
   # List packages installed in system profile. To search by name, run:
@@ -12,13 +16,13 @@ in
       "${home}/.nix-defexpr/channels"];
   };
   imports = [ <home-manager/nix-darwin> ];
-   
+
+  users.users.cuichli.home="/Users/cuichli";
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     users.cuichli = {
       home.username = "cuichli";
-      # home.homeDirectory = "/Users/cuichli";
       home.stateVersion = "23.05";
       programs.home-manager.enable = true;
       programs.gh = {
@@ -30,7 +34,7 @@ in
 
       programs.neovim = {
          enable = true;
-	 
+
       };
 
  xdg.configFile.nvim = {
@@ -88,6 +92,7 @@ in
           export GPG_TTY=$(tty)
           export TMP_PATH=$HOME/.cargo/bin:$HOME/go/bin:$PATH
           source ${pkgs.asdf-vm.out}/etc/profile.d/asdf-prepare.sh
+          export PATH="/home/cuichli/.asdf/shims:$PATH"
 
           _evalcache jenv init -
           _evalcache direnv hook zsh
@@ -98,18 +103,37 @@ in
     };
   };
 
-
-
-  homebrew = {
+ homebrew = {
     enable = true;
     onActivation.upgrade = true;
     onActivation.cleanup = "uninstall";
+    global.autoUpdate = true;
     taps = [
       "hazelcast/hz"
       "txn2/tap"
       "quarkusio/tap"
+      "knative-sandbox/kn-plugins"
+      "fluxcd/tap"
     ];
     brews = [
+      "fluxcd/tap/flux"
+      "istioctl"
+      "diffutils"
+      "openssl@1.1"
+      "openssl"
+      "docker-credential-helper"
+      "docker-credential-helper-ecr"
+      "kompose"
+      "kafka"
+      "etcd"
+      "docker-compose"
+      "docker"
+      "bzip2"
+      "lbzip2"
+      "colima"
+      "lima"
+      "qemu"
+      "prometheus"
       "gpg2"
       "pinentry"
       "pinentry-mac"
@@ -121,8 +145,19 @@ in
       "yq"
       "jenv"
       "direnv"
+      "func"
+      "tailspin"
     ];
     casks = [
+      "bruno"
+      "klogg"
+      "monitorcontrol"
+      "v2rayu"
+      "itsycal"
+      "microsoft-edge"
+      "redisinsight"
+      "jetbrains-toolbox"
+      "firefox"
       "mos"
       "macfuse"
       "alt-tab"
@@ -130,62 +165,46 @@ in
       "stats"
       "doll"
       "raycast"
-      "bloomrpc"
       "snipaste"
-      "docker"
       "foobar2000"
       "qqmusic"
       "squirrel"
       "wechat"
       "maccy"
-      "microsoft-edge"
-      "telegram"
-      "android-studio"
+      "visual-studio-code"
+      "intellij-idea"
+      "pycharm"
+      "goland"
     ];
   };
   environment.systemPackages = with pkgs;
     [
+      oldKubectl
+      delta
       maven
-      google-cloud-sdk
-      colima
-      lima
-      rustup
       cmake
       pkg-config
       gnumake
-      pgadmin4
       patchelf
       krew
       k6
       kcat
       argocd
-      fluxcd
       wget
-      kustomize
-      jira-cli-go
       envsubst
       kubeconform
       atuin
       lnav
       nil
       rnix-lsp
-      postman
-      kubectl
       kubectx
       vim
       iterm2
-      slack
       bat
-      vscode
       fzf
       git
       kubie
       minikube
-      jetbrains.idea-ultimate
-      jetbrains.clion
-      jetbrains.goland
-      jetbrains.pycharm-professional
-      jetbrains.webstorm
       jq
       asdf-vm
       kubie
@@ -230,4 +249,3 @@ in
     ShowStatusBar = true;
   };
 }
-
