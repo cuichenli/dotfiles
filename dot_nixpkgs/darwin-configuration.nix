@@ -212,6 +212,7 @@ in
       "tailspin"
     ];
     casks = [
+      "dozer"
       "warp"
       "spotify"
       "bruno"
