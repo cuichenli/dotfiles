@@ -142,6 +142,7 @@ in
           antigen bundle ohmyzsh/ohmyzsh plugins/kubectl
           antigen bundle ohmyzsh/ohmyzsh plugins/iterm2
           antigen bundle ohmyzsh/ohmyzsh plugins/docker
+          antigen bundle ohmyzsh/ohmyzsh plugins/fzf
           antigen bundle zsh-users/zsh-syntax-highlighting
           antigen bundle zsh-users/zsh-autosuggestions
           antigen bundle zsh-users/zsh-completions
@@ -150,7 +151,8 @@ in
           antigen bundle mroth/evalcache
           antigen apply
 
-          bindkey '^r' _atuin_search_widget
+          # bindkey '^r' _atuin_search_widget
+          
 
           export AWS_PAGER=
           export GPG_TTY=$(tty)
@@ -162,6 +164,30 @@ in
           _evalcache direnv hook zsh
           setopt prompt_sp
           export EDITOR=nvim
+
+          # The following configurations regarding history are from https://martinheinz.dev/blog/110
+          # https://zsh.sourceforge.io/Doc/Release/Options.html (16.2.4 History)
+          
+          setopt EXTENDED_HISTORY      # Write the history file in the ':start:elapsed;command' format.
+          setopt INC_APPEND_HISTORY    # Write to the history file immediately, not when the shell exits.
+          setopt SHARE_HISTORY         # Share history between all sessions.
+          setopt HIST_IGNORE_DUPS      # Do not record an event that was just recorded again.
+          setopt HIST_IGNORE_ALL_DUPS  # Delete an old recorded event if a new event is a duplicate.
+          setopt HIST_IGNORE_SPACE     # Do not record an event starting with a space.
+          setopt HIST_SAVE_NO_DUPS     # Do not write a duplicate event to the history file.
+          setopt HIST_VERIFY           # Do not execute immediately upon history expansion.
+          setopt APPEND_HISTORY        # append to history file (Default)
+          setopt HIST_NO_STORE         # Don't store history commands
+          setopt HIST_REDUCE_BLANKS    # Remove superfluous blanks from each command line being added to the history.
+          export FZF_DEFAULT_COMMAND='ag --hidden -g ""'
+          HISTFILE="$HOME/.zsh_history"
+          HISTSIZE=10000000
+          SAVEHIST=10000000
+          
+          HISTORY_IGNORE="(ls|cd|pwd|exit|cd)*"
+          
+          bindkey "^[[A" up-line-or-beginning-search    # Arrow up
+          bindkey "^[[B" down-line-or-beginning-search  # Arrow down
         '';
       };
     };
@@ -180,6 +206,8 @@ in
       "fluxcd/tap"
     ];
     brews = [
+      "fzf"
+      "the_silver_searcher"
       "pipx"
       "fluxcd/tap/flux"
       "diffutils"
