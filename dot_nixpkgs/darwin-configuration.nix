@@ -43,7 +43,7 @@ in
   };
       programs.git = {
         enable = true;
-        ignores = [ ".java-version" ".vscode"];
+        ignores = [ ".java-version" ".vscode" ".tool-versions"];
         extraConfig = {
           "includeIf \"gitdir:~/work/\"" = {
             path = "~/.gitconfig-work";
@@ -58,7 +58,6 @@ in
           core = {
             editor = "nvim -f";
             pager = "delta";
-	          excludesfile = "/Users/cuichli/.gitignore";
           };
           interactive = {
             difffilter = "delta --color-only";
