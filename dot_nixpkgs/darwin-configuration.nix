@@ -1,9 +1,12 @@
 { config, pkgs, lib, xdg, ... }:
-let home = builtins.getEnv "HOME";
-    oldPkgs = import (builtins.fetchTarball {
-        url = "https://github.com/NixOS/nixpkgs/archive/b3a285628a6928f62cdf4d09f4e656f7ecbbcafb.tar.gz";
-    }) {};
-    oldKubectl = oldPkgs.kubectl;
+let
+  home = builtins.getEnv "HOME";
+  oldPkgs = import
+    (builtins.fetchTarball {
+      url = "https://github.com/NixOS/nixpkgs/archive/b3a285628a6928f62cdf4d09f4e656f7ecbbcafb.tar.gz";
+    })
+    { };
+  oldKubectl = oldPkgs.kubectl;
 in
 {
   # List packages installed in system profile. To search by name, run:
@@ -17,7 +20,7 @@ in
   };
   imports = [ <home-manager/nix-darwin> ];
 
-  users.users.cuichli.home="/Users/cuichli";
+  users.users.cuichli.home = "/Users/cuichli";
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -33,17 +36,17 @@ in
       };
 
       programs.neovim = {
-         enable = true;
+        enable = true;
 
       };
 
- xdg.configFile.nvim = {
-    source = ./config/neovim;
-    recursive = true;
-  };
+      xdg.configFile.nvim = {
+        source = ./config/neovim;
+        recursive = true;
+      };
       programs.git = {
         enable = true;
-        ignores = [ ".java-version" ".vscode" ".tool-versions"];
+        ignores = [ ".java-version" ".vscode" ".tool-versions" ];
         extraConfig = {
           "includeIf \"gitdir:~/work/\"" = {
             path = "~/.gitconfig-work";
@@ -53,7 +56,7 @@ in
           };
 
           commit = {
-             gpgsign = "true";
+            gpgsign = "true";
           };
           core = {
             editor = "nvim -f";
@@ -69,7 +72,7 @@ in
             plus-style = "syntax #012800";
             minus-style = "syntax #340001";
             syntax-theme = "Dracula";
-         };
+          };
 
           decorations = {
             commit-decoration-style = "bold yellow box ul";
@@ -78,31 +81,31 @@ in
           };
 
           gpg = {
-          	program = "gpg2";
+            program = "gpg2";
           };
           pull = {
-          	rebase = "false";
-           };
-         help = {
-          	autoCorrect = "prompt";
-            };
-        merge = {
-          	conflictstyle = "zdiff3";
-             };
-       safe = {
-          	directory = "/Users/cuichli/dev/vde_vmnet";
-              };
-      push = {
-          	autoSetupRemote = "true";
-               };
-     diff = {
-          	algorithm = "histogram";
-                };
-    column = {
-          	ui = "auto";
-                 };
-   branch = {
-          	sort = "-committerdate ";
+            rebase = "false";
+          };
+          help = {
+            autoCorrect = "prompt";
+          };
+          merge = {
+            conflictstyle = "zdiff3";
+          };
+          safe = {
+            directory = "/Users/cuichli/dev/vde_vmnet";
+          };
+          push = {
+            autoSetupRemote = "true";
+          };
+          diff = {
+            algorithm = "histogram";
+          };
+          column = {
+            ui = "auto";
+          };
+          branch = {
+            sort = "-committerdate ";
           };
 
 
@@ -192,7 +195,7 @@ in
     };
   };
 
- homebrew = {
+  homebrew = {
     enable = true;
     onActivation.upgrade = true;
     onActivation.cleanup = "uninstall";
@@ -220,9 +223,9 @@ in
       "docker"
       "bzip2"
       "lbzip2"
-      { 
-        name="colima";
-        start_service=true;
+      {
+        name = "colima";
+        start_service = true;
       }
       "lima"
       "qemu"
@@ -334,7 +337,7 @@ in
   nixpkgs.config.allowUnfree = true;
   nix.settings.trusted-users = [ "cuichli" ];
 
-      environment.variables.EDITOR = "nvim";
+  environment.variables.EDITOR = "nvim";
   system.defaults.finder = {
     AppleShowAllExtensions = true;
     AppleShowAllFiles = true;
