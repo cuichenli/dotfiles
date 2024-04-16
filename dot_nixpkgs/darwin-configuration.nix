@@ -220,7 +220,10 @@ in
       "docker"
       "bzip2"
       "lbzip2"
-      "colima"
+      { 
+        name="colima";
+        start_service=true;
+      }
       "lima"
       "qemu"
       "prometheus"
