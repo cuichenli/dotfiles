@@ -260,7 +260,6 @@ in
       "alt-tab"
       "kdiff3"
       "stats"
-      "doll"
       "raycast"
       "snipaste"
       "foobar2000"
