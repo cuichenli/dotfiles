@@ -105,7 +105,7 @@ in
             ui = "auto";
           };
           branch = {
-            sort = "-committerdate ";
+            sort = "-committerdate";
           };
 
 
@@ -245,6 +245,7 @@ in
       "tailspin"
     ];
     casks = [
+      "aural"
       "dozer"
       "warp"
       "spotify"
