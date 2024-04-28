@@ -132,7 +132,7 @@ in
         };
         initExtra = ''
           export JIRA_AUTH_TYPE=bearer
-          export PATH=$HOME/.local/bin:$HOME/.krew/bin:/run/current-system/sw/bin/:/$HOME/.cargo/bin:$HOME/go/bin:Users/cuichli/.nimble/bin:$PATH
+          export PATH=$HOME/.rd/bin:$HOME/.local/bin:$HOME/.krew/bin:/run/current-system/sw/bin/:/$HOME/.cargo/bin:$HOME/go/bin:Users/cuichli/.nimble/bin:$PATH
           export NVM_LAZY_LOAD=true
           export NVM_LAZY_LOAD_EXTRA_COMMANDS=('vim' 'yarn' 'npm' 'home-manager' 'k' 'kubectl' 'darwin-rebuild')
           export ATUIN_NOBIND="true"
@@ -223,10 +223,6 @@ in
       "docker"
       "bzip2"
       "lbzip2"
-      {
-        name = "colima";
-        start_service = true;
-      }
       "lima"
       "qemu"
       "prometheus"
@@ -245,6 +241,7 @@ in
       "tailspin"
     ];
     casks = [
+      "docker"
       "aural"
       "dozer"
       "warp"
