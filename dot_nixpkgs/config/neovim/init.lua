@@ -87,6 +87,8 @@ require("lazy").setup({
 	-- formatting & linting
 	"jose-elias-alvarez/null-ls.nvim", -- configure formatters & linters
 	"jayp0521/mason-null-ls.nvim", -- bridges gap b/w mason & null-ls
+
+	{ "akinsho/toggleterm.nvim", version = "*", config = true },
 })
 
 local cmdStatus, _ = pcall(vim.cmd, "colorscheme onedark")
@@ -326,3 +328,12 @@ saga.setup({
 		edit = "<CR>",
 	},
 })
+
+local toggleTermInstalled, toggleterm = pcall(require, "toggleterm")
+if toggleTermInstalled then
+	toggleterm.setup({
+		size = 20,
+		open_mapping = [[<c-`>]],
+		direction = "horizontal",
+	})
+end
