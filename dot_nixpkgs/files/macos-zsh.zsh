@@ -1,0 +1,1 @@
+zi snippet OMZP::brew

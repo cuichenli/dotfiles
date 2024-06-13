@@ -4,7 +4,7 @@ let
   homeDir = "${config.home.homeDirectory}";
   hmDir = if pkgs.stdenv.isLinux then homeDir + "/.config/home-manager" else homeDir + "/.nixpkgs";
   commonScript = builtins.readFile (builtins.toString hmDir + "/files/common-zsh.zsh");
-  extraScript = if pkgs.stdenv.isLinux then builtins.readFile (builtins.toString hmDir + "/files/zsh-config-in-wsl2.zsh") else "";
+  extraScript = if pkgs.stdenv.isLinux then builtins.readFile (builtins.toString hmDir + "/files/zsh-config-in-wsl2.zsh") else builtins.readFile (builtins.toString hmDir + "/files/macos-zsh.zsh") ;
 in
 {
   programs.zsh = {
