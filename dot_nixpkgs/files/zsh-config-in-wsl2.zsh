@@ -2,6 +2,7 @@
 # https://github.com/microsoft/terminal/issues/100#issuecomment-962896948
 ### ctrl+arrows
 export BROWSER=wslview
+export GPG_TTY=$(tty)
 
 bindkey "\e[1;5C" forward-word
 bindkey "\e[1;5D" backward-word
