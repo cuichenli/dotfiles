@@ -32,4 +32,6 @@ with pkgs; [
   eksctl
   aws-iam-authenticator
   grpcui
+  rustup
+  pnpm
 ]

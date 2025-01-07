@@ -205,8 +205,12 @@ in
       "quarkusio/tap"
       "knative-sandbox/kn-plugins"
       "fluxcd/tap"
+      "mergestat/mergestat"
     ];
     brews = [
+      "llvm"
+      "FiloSottile/musl-cross/musl-cross"
+      "mergestat/mergestat/mergestat"
       "fzf"
       "the_silver_searcher"
       "pipx"
@@ -240,18 +244,15 @@ in
       "tailspin"
     ];
     casks = [
+      "yaak"
       "bluesnooze"
-      "kitty"
       "docker"
       "aural"
       "dozer"
-      "warp"
       "spotify"
-      "bruno"
       "klogg"
       "itsycal"
       "microsoft-edge"
-      "redisinsight"
       "jetbrains-toolbox"
       "firefox"
       "mos"
