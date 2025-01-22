@@ -7,7 +7,7 @@ let
   pkgsToInstall = if pkgs.stdenv.isLinux then personalPkgs ++ commonPkgs else workPkgs ++ commonPkgs;
  in
 {
-  imports = [ ./git.nix ./zsh.nix ];
+  imports = [ ./git.nix ./fish.nix ];
   home.username = builtins.getEnv ("USER");
   home.homeDirectory = builtins.getEnv ("HOME");
 
@@ -37,7 +37,7 @@ let
   };
 
   xdg.configFile.nvim = {
-    source = ./config/neovim;
+    source = ./config/neovim/starter;
     recursive = true;
   };
 

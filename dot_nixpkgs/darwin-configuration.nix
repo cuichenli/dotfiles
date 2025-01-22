@@ -14,6 +14,7 @@ in
   imports = [ <home-manager/nix-darwin> ];
 
   users.users.cuichli.home = "/Users/cuichli";
+  users.users.cuichli.shell = pkgs.fish;
   home-manager = with pkgs; {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -223,7 +224,6 @@ in
       "kafka"
       "etcd"
       "docker-compose"
-      "docker"
       "bzip2"
       "lbzip2"
       "lima"
@@ -244,6 +244,7 @@ in
       "tailspin"
     ];
     casks = [
+      "wezterm"
       "yaak"
       "bluesnooze"
       "docker"
@@ -268,9 +269,6 @@ in
       "wechat"
       "maccy"
       "visual-studio-code"
-      "intellij-idea"
-      "pycharm"
-      "goland"
     ];
   };
   # environment.systemPackages = with pkgs;
@@ -328,8 +326,7 @@ in
   # nix.package = pkgs.nix;
 
   # Create /etc/zshrc that loads the nix-darwin environment.
-  programs.zsh.enable = true; # default shell on catalina
-  # programs.fish.enable = true;
+  programs.fish.enable = true;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog

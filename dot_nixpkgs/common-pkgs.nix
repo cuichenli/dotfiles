@@ -1,13 +1,8 @@
 { pkgs, ...}:
 
 with pkgs; [
-    # busybox
-    # protobuf
-    # pinentry
-    # unzip
-    # emscripten
+    starship
     zoxide
-    # conan
     silver-searcher
     delta
     maven
