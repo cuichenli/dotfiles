@@ -223,7 +223,6 @@ in
       "docker-credential-helper-ecr"
       "kafka"
       "etcd"
-      "docker-compose"
       "bzip2"
       "lbzip2"
       "lima"
@@ -244,10 +243,10 @@ in
       "tailspin"
     ];
     casks = [
+      "slack"
       "wezterm"
       "yaak"
       "bluesnooze"
-      "docker"
       "aural"
       "dozer"
       "spotify"
@@ -257,7 +256,6 @@ in
       "jetbrains-toolbox"
       "firefox"
       "mos"
-      "macfuse"
       "alt-tab"
       "kdiff3"
       "stats"
@@ -321,8 +319,6 @@ in
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
   # environment.darwinConfig = "${home}/.nixpkgs/darwin-configuration.nix";
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
 
   # Create /etc/zshrc that loads the nix-darwin environment.
