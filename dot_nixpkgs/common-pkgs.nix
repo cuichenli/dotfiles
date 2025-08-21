@@ -7,7 +7,6 @@ with pkgs; [
     delta
     maven
     cmake
-    pkg-config
     gnumake
     wget
     lnav

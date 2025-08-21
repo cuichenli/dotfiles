@@ -17,6 +17,7 @@ zi snippet OMZL::git.zsh
 # Load Git plugin from OMZ
 zi snippet OMZP::git
 zi snippet OMZP::fzf
+zi snippet OMZP::kubectl
 zi cdclear -q # <- forget completions provided up to this moment
 
 setopt promptsubst

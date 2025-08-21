@@ -9,7 +9,7 @@
       "includeIf \"gitdir:~/personal/\"" = {
         path = "~/.gitconfig-personal";
       };
-
+ 
       commit = {
         gpgsign = "true";
       };

@@ -2,23 +2,30 @@
 
 with pkgs; [
     protobuf
-    pinentry
     unzip
     minikube
     k9s
     kubernetes-helm
-    kubectl
-    pulumi
+    kubernetes
+    llvmPackages_19.libcxxClang
     uv
     glibc
-    google-cloud-sdk
-    jbang
-    temporal-cli
-    oci-cli
+    krew
     kubie
+    pyenv
+    google-cloud-sdk-gce
+    rustup
     k3d
-    deno
+    kind
+    docker-compose
+    opentofu
+    pnpm_10
+    k6
+    logdy
+    kubectx
+    kail
     gemini-cli
-    cargo
+    deno
+    eksctl
 ]
 

@@ -44,10 +44,20 @@ in
         source ${homeDir}/.asdf/plugins/java/set-java-home.fish
         eval "$(zoxide init fish)"
         fish_add_path /opt/homebrew/bin 
+
+        # function fish_user_key_bindings
+        #   # Ctrl Left Arrow
+        #   bind \e\[1\;5D backward-word
+        #   # Ctrl Right Arrow
+        #   bind \e\[1\;5C forward-word
+        #   # Ctrl backspace
+        #   bind \b backward-kill-word
+        # end
     '';
 
     shellInitLast = ''
       starship init fish | source
+      export EDITOR=nvim
       set -gx GPG_TTY (tty)
     '';
   };
