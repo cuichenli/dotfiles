@@ -5,11 +5,11 @@ let
   personalPkgs = import ./personal-pkgs.nix { inherit pkgs; };
   workPkgs = import ./work-pkgs.nix { inherit pkgs; };
   pkgsToInstall = if pkgs.stdenv.isLinux then personalPkgs ++ commonPkgs else workPkgs ++ commonPkgs;
+  username = if pkgs.stdenv.isLinux then builtins.getEnv ("USER") else "cuichli";
  in
 {
   imports = [ ./git.nix ./fish.nix ];
-  home.username = builtins.getEnv ("USER");
-  home.homeDirectory = builtins.getEnv ("HOME");
+  home.username = username;
 
 
   # This value determines the Home Manager release that your

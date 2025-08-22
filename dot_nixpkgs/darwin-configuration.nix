@@ -6,10 +6,7 @@ in
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   nix = {
-    nixPath = lib.mkForce [{
-      darwin-config = "${home}/.nixpkgs/darwin-configuration.nix";
-    }
-      "${home}/.nix-defexpr/channels"];
+    enable = false;
   };
   imports = [ <home-manager/nix-darwin> ];
 
@@ -201,37 +198,18 @@ in
     onActivation.cleanup = "uninstall";
     global.autoUpdate = true;
     taps = [
-      "hazelcast/hz"
-      "txn2/tap"
-      "quarkusio/tap"
-      "knative-sandbox/kn-plugins"
-      "fluxcd/tap"
-      "mergestat/mergestat"
+      "FelixKratz/formulae"
     ];
     brews = [
-      "llvm"
-      "FiloSottile/musl-cross/musl-cross"
-      "mergestat/mergestat/mergestat"
       "fzf"
       "the_silver_searcher"
       "pipx"
-      "fluxcd/tap/flux"
       "diffutils"
-      "openssl@1.1"
-      "openssl"
       "docker-credential-helper"
       "docker-credential-helper-ecr"
-      "kafka"
-      "etcd"
-      "bzip2"
-      "lbzip2"
-      "lima"
-      "qemu"
-      "prometheus"
       "gpg2"
       "pinentry"
       "pinentry-mac"
-      "quarkus"
       "marp-cli"
       "kubefwd"
       "watch"
@@ -239,30 +217,30 @@ in
       "yq"
       "jenv"
       "direnv"
-      "func"
       "tailspin"
+      "FelixKratz/formulae/sketchybar"
     ];
     casks = [
+      "font-hack-nerd-font"
+      "font-maple-mono-cn"
+      "font-ubuntu-mono-nerd-font"
+      "firefox"
+      "zen"
       "slack"
-      "wezterm"
+      "iterm2"
+      "orbstack"
       "yaak"
       "bluesnooze"
       "aural"
-      "dozer"
-      "spotify"
       "klogg"
       "itsycal"
-      "microsoft-edge"
-      "jetbrains-toolbox"
-      "firefox"
       "mos"
       "alt-tab"
       "kdiff3"
       "stats"
       "raycast"
-      "snipaste"
       "foobar2000"
-      "qqmusic"
+      "pixpin"
       "squirrel"
       "wechat"
       "maccy"
@@ -327,8 +305,8 @@ in
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
+  system.primaryUser = "cuichli";
   nixpkgs.config.allowUnfree = true;
-  nix.settings.trusted-users = [ "cuichli" ];
 
   environment.variables.EDITOR = "nvim";
   system.defaults.finder = {
