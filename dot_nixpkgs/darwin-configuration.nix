@@ -241,7 +241,7 @@ in
       "raycast"
       "foobar2000"
       "pixpin"
-      "squirrel"
+      "squirrel-app"
       "wechat"
       "maccy"
       "visual-studio-code"
