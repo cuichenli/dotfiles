@@ -198,7 +198,6 @@ in
     onActivation.cleanup = "uninstall";
     global.autoUpdate = true;
     taps = [
-      "FelixKratz/formulae"
     ];
     brews = [
       "fzf"
@@ -218,10 +217,9 @@ in
       "jenv"
       "direnv"
       "tailspin"
-      "FelixKratz/formulae/sketchybar"
     ];
     casks = [
-      "font-hack-nerd-font"
+      "jordanbaird-ice"
       "font-maple-mono-cn"
       "font-ubuntu-mono-nerd-font"
       "firefox"
