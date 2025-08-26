@@ -11,15 +11,6 @@ let
           sha256 = "39L6UDslgIEymFsQY8klV/aluU971twRUymzRL17+6c=";
       };
     }
-    {
-      name = "kubectl";
-      src = pkgs.fetchFromGitHub {
-          owner = "blackjid";
-          repo = "plugin-kubectl";
-          rev = "3f1c96d80014da957bde681ca2f59ade8bf1d423";
-          sha256 = "LZQDqvsqz1jDXAzpIOIKn090e3gQ1ugzk8Bw+xZ2efA=";
-      };
-    }
   ];
   nixShellPlugin = [
     {
@@ -37,7 +28,7 @@ in
 {
   programs.fish = {
     enable = true;
-    plugins = _plugins;
+    plugins = finalPlugins;
     
     shellInit = ''
         export PATH="${homeDir}/.asdf/shims:$PATH"
