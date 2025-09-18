@@ -36,6 +36,8 @@
       "tailspin"
     ];
     casks = [
+      "onedrive"
+      "doll"
       "jordanbaird-ice"
       "font-maple-mono-cn"
       "font-ubuntu-mono-nerd-font"

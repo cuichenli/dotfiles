@@ -32,6 +32,8 @@
             imports = [ ../../home.nix ];
             home.homeDirectory = "/Users/cuichli";
             home.username = "cuichli";
+            home.file."Library/Rime/default.custom.yaml".source = ../../files/rime/default.custom.yaml;
+            home.file."Library/Rime/squirrel.custom.yaml".source = ../../files/rime/squirrel.custom.yaml;
           };
         }
       ];
