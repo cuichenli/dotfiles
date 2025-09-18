@@ -5,9 +5,6 @@ let
   personalPkgs = import ./personal-pkgs.nix { inherit pkgs; };
   workPkgs = import ./work-pkgs.nix { inherit pkgs; };
   pkgsToInstall = if pkgs.stdenv.isLinux then personalPkgs ++ commonPkgs else workPkgs ++ commonPkgs;
-  username = if pkgs.stdenv.isLinux then builtins.getEnv ("USER") else "cuichli";
-  homeDir = if pkgs.stdenv.isLinux then builtins.getEnv ("HOME") else "/root";
-  y = builtins.trace "homeDir: ${toString homeDir}" homeDir;
  in
 {
   
