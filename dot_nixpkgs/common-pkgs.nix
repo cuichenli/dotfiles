@@ -23,4 +23,7 @@ with pkgs; [
     httpie
     gnupg
     nixpkgs-fmt
+    atuin
+    carapace
+    nixfmt
 ]

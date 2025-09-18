@@ -35,7 +35,7 @@ in
         source ${homeDir}/.asdf/plugins/java/set-java-home.fish
         eval "$(zoxide init fish)"
         fish_add_path /opt/homebrew/bin 
-
+        carapace _carapace | source
         # function fish_user_key_bindings
         #   # Ctrl Left Arrow
         #   bind \e\[1\;5D backward-word
@@ -50,6 +50,8 @@ in
       starship init fish | source
       export EDITOR=nvim
       set -gx GPG_TTY (tty)
+      # do it at the end to override the fzf fish integration
+      atuin init fish  --disable-up-arrow| source
     '';
   };
 }
