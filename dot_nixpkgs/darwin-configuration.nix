@@ -1,4 +1,11 @@
-{ config, pkgs, lib, xdg, user, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  xdg,
+  user,
+  ...
+}:
 {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget

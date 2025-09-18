@@ -1,7 +1,11 @@
 {
   programs.git = {
     enable = true;
-    ignores = [ ".java-version" ".vscode" ".tool-versions" ];
+    ignores = [
+      ".java-version"
+      ".vscode"
+      ".tool-versions"
+    ];
     extraConfig = {
       "includeIf \"gitdir:~/work/\"" = {
         path = "~/.gitconfig-work";
@@ -9,7 +13,7 @@
       "includeIf \"gitdir:~/personal/\"" = {
         path = "~/.gitconfig-personal";
       };
- 
+
       commit = {
         gpgsign = "true";
       };

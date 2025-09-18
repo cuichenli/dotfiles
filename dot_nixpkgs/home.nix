@@ -1,26 +1,16 @@
 { config, pkgs, ... }:
 
-let 
+let
   commonPkgs = import ./common-pkgs.nix { inherit pkgs; };
   personalPkgs = import ./personal-pkgs.nix { inherit pkgs; };
   workPkgs = import ./work-pkgs.nix { inherit pkgs; };
   pkgsToInstall = if pkgs.stdenv.isLinux then personalPkgs ++ commonPkgs else workPkgs ++ commonPkgs;
- in
+in
 {
-  
-  imports = [ ./git.nix ./fish.nix ];
-  # home.username = username;
-  # home.homeDirectory = builtins.trace "homeDir: ${toString homeDir} ${toString username} 1213 ${builtins.getEnv("USER")}" homeDir;
-
-
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
+  imports = [
+    ./git.nix
+    ./fish.nix
+  ];
   home.stateVersion = "23.05";
 
   # Let Home Manager install and manage itself.
@@ -50,6 +40,14 @@ let
 
   nix = {
     package = pkgs.nix;
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+  };
+
+  home.file = pkgs.lib.mkIf pkgs.stdenv.isDarwin {
+    "Library/Rime/default.custom.yaml".source = ./files/rime/default.custom.yaml;
+    "Library/Rime/squirrel.custom.yaml".source = ./files/rime/squirrel.custom.yaml;
   };
 }

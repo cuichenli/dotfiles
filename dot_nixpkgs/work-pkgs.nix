@@ -1,6 +1,7 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 
-with pkgs; [
+with pkgs;
+[
   patchelf
   krew
   k6
