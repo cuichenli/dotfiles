@@ -32,6 +32,18 @@
             }
           ];
         };
+
+        "cuichen" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs { system = "x86_64-linux"; };
+
+          modules = [
+            ../../home.nix
+            {
+              home.username = "cuichen";
+              home.homeDirectory = "/home/cuichen";
+            }
+          ];
+        };
       };
     };
 }
