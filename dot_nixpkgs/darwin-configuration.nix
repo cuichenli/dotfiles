@@ -74,7 +74,14 @@
 
   programs.fish.enable = true;
 
-  system.stateVersion = 4;
+  system = {
+    stateVersion = 4;
+    defaults.dock = {
+      mru-spaces = false;
+      orientation = "right";
+      autohide = true;
+    };
+  };
   nixpkgs.config.allowUnfree = true;
   nixpkgs.hostPlatform = "aarch64-darwin";
 
