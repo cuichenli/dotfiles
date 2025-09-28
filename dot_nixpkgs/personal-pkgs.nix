@@ -8,9 +8,7 @@ with pkgs;
   k9s
   kubernetes-helm
   kubernetes
-  llvmPackages_19.libcxxClang
   uv
-  glibc
   krew
   kubie
   pyenv

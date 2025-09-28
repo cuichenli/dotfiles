@@ -7,8 +7,6 @@ with pkgs;
   silver-searcher
   delta
   maven
-  cmake
-  gnumake
   wget
   lnav
   nil
