@@ -8,7 +8,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    # Use the repo root flake as an input to avoid absolute paths
+    dotfiles = {
+      url = "path:../..";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
 
@@ -24,7 +28,6 @@
         system = "x86_64-linux";
         config.allowUnfree = true;
       };
-      rootPath = "../.."; 
     in
     {
 
@@ -32,15 +35,14 @@
         "cuichen" = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgs;
           modules = [
-      #      inputs.dotfiles.home.nix
-            /home/cuichen/personal/dotfiles/dot_nixpkgs/home.nix
+            inputs.dotfiles.homeModules.default
             {
               home.username = "cuichen";
               home.homeDirectory = "/home/cuichen";
 
               home.file = {
                 "/home/cuichen/.local/share/fcitx5/rime/default.custom.yaml".source =
-                  /home/cuichen/personal/dotfiles/dot_nixpkgs/files/rime/default.custom.yaml;
+                  inputs.dotfiles.files.rime.defaultCustom;
               };
               home.packages = with pkgs; [
                 nerd-fonts.ubuntu-sans
