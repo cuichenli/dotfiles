@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   commonPkgs = import ./common-pkgs.nix { inherit pkgs; };
@@ -13,6 +13,12 @@ in
   ];
   home.stateVersion = "23.05";
 
+  home.activation.mise-install = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    ${pkgs.mise}/bin/mise prune
+    ${pkgs.mise}/bin/mise install
+  '';
+
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -20,6 +26,18 @@ in
     enable = true;
     settings = {
       git_protocol = "ssh";
+    };
+  };
+
+  programs.mise = {
+    enable = true;
+    enableFishIntegration = true;
+    globalConfig = {
+      tools = {
+        node = "lts";
+        java = "temurin-21.0.8+9.0.LTS";
+        gradle = "8.14.3";
+      };
     };
   };
 

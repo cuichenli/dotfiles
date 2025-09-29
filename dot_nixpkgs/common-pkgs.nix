@@ -13,7 +13,6 @@ with pkgs;
   bat
   fzf
   jq
-  asdf-vm
   awscli2
   htop
   tldr

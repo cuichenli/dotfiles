@@ -33,14 +33,14 @@
           pkgs = pkgs;
           modules = [
       #      inputs.dotfiles.home.nix
-            /home/cuichen/Downloads/dotfiles-master/dot_nixpkgs/home.nix
+            /home/cuichen/personal/dotfiles/dot_nixpkgs/home.nix
             {
               home.username = "cuichen";
               home.homeDirectory = "/home/cuichen";
 
               home.file = {
                 "/home/cuichen/.local/share/fcitx5/rime/default.custom.yaml".source =
-                  /home/cuichen/Downloads/dotfiles-master/dot_nixpkgs/files/rime/default.custom.yaml;
+                  /home/cuichen/personal/dotfiles/dot_nixpkgs/files/rime/default.custom.yaml;
               };
               home.packages = with pkgs; [
                 nerd-fonts.ubuntu-sans

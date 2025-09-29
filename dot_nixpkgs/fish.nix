@@ -31,8 +31,8 @@ in
     plugins = finalPlugins;
 
     shellInit = ''
-      export PATH="${homeDir}/.asdf/shims:$PATH"
-      source ${homeDir}/.asdf/plugins/java/set-java-home.fish
+      # export PATH="${homeDir}/.asdf/shims:$PATH"
+      # source ${homeDir}/.asdf/plugins/java/set-java-home.fish
       eval "$(zoxide init fish)"
       fish_add_path /opt/homebrew/bin 
       carapace _carapace | source
