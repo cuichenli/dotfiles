@@ -2,24 +2,80 @@
   description = "Personal dotfiles as a flake";
 
   inputs = {
-    # Using nixos-unstable for formatter or future needs; consumers can `follows` it.
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  };
+    nixpkgs.url = "https://mirrors.ustc.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz";
 
-  outputs = { self, nixpkgs, ... }: {
-    # Expose Home Manager modules so other flakes can import them.
-    homeModules = {
-      # Primary Home Manager module for these dotfiles
-      default = import ./home.nix;
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Expose raw files that other flakes can use without absolute paths.
-    files = {
-      rime = {
-        defaultCustom = ./files/rime/default.custom.yaml;
-        squirrelCustom = ./files/rime/squirrel.custom.yaml;
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs = { self, nixpkgs, home-manager, nix-darwin, ... }:
+    let
+      pkgsLinux = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
+      pkgsDarwin = import nixpkgs {
+        system = "aarch64-darwin";
+        config.allowUnfree = true;
+      };
+    in
+    {
+      # Expose Home Manager modules so other flakes can import them.
+      homeModules = {
+        # Primary Home Manager module for these dotfiles
+        default = import ./home.nix;
+      };
+
+      # Expose raw files that other flakes can use without absolute paths.
+      files = {
+        rime = {
+          defaultCustom = ./files/rime/default.custom.yaml;
+          squirrelCustom = ./files/rime/squirrel.custom.yaml;
+        };
+      };
+
+      # Home Manager configurations for different systems
+      homeConfigurations = {
+        "wsl-cuichen" = home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgsLinux;
+          modules = [
+            ./home.nix
+            ./machines/wsl-cuichen.nix
+          ];
+        };
+
+        "wsl-cuichli" = home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgsLinux;
+          modules = [
+            ./home.nix
+            ./machines/wsl-cuichli.nix
+          ];
+        };
+
+        "debian" = home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgsLinux;
+          modules = [
+            ./home.nix
+            ./machines/debian.nix
+          ];
+        };
+      };
+
+      # Darwin (macOS) configurations
+      darwinConfigurations."mac-mini" = nix-darwin.lib.darwinSystem {
+        specialArgs = { user = "cuichli"; };
+        modules = [
+          home-manager.darwinModules.home-manager
+          ./machines/mac-mini.nix
+        ];
       };
     };
-  };
 }
 

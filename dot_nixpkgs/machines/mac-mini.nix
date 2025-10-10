@@ -4,6 +4,7 @@
   lib,
   xdg,
   user,
+  home-manager,
   ...
 }:
 {
@@ -13,7 +14,12 @@
     enable = false;
   };
 
-  users.users.${user}.shell = pkgs.fish;
+  users.users.${user} = {
+    shell = pkgs.fish;
+    home = "/Users/${user}";
+  };
+
+  system.primaryUser = user;
 
   homebrew = {
     enable = true;
@@ -84,5 +90,14 @@
     AppleShowAllFiles = true;
     ShowPathbar = true;
     ShowStatusBar = true;
+  };
+
+  # Home Manager configuration
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+  home-manager.users.${user} = {
+    imports = [ ../home.nix ];
+    home.homeDirectory = "/Users/${user}";
+    home.username = user;
   };
 }
