@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "https://mirrors.ustc.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz";
 
+    # Specific nixpkgs commit for awscli2
+    nixpkgs-awscli = {
+      url = "github:NixOS/nixpkgs/de74240d03acfd332c99dce42fc93239dcaa9cdf";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -15,13 +20,22 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-darwin, ... }:
+  outputs = { self, nixpkgs, nixpkgs-awscli, home-manager, nix-darwin, ... }:
     let
       pkgsLinux = import nixpkgs {
         system = "x86_64-linux";
         config.allowUnfree = true;
       };
       pkgsDarwin = import nixpkgs {
+        system = "aarch64-darwin";
+        config.allowUnfree = true;
+      };
+      # Import the specific nixpkgs for awscli2
+      pkgsAwscliLinux = import nixpkgs-awscli {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
+      pkgsAwscliDarwin = import nixpkgs-awscli {
         system = "aarch64-darwin";
         config.allowUnfree = true;
       };
@@ -45,6 +59,7 @@
       homeConfigurations = {
         "wsl-cuichen" = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsLinux;
+          extraSpecialArgs = { pkgsAwscli = pkgsAwscliLinux; };
           modules = [
             ./home.nix
             ./machines/wsl-cuichen.nix
@@ -53,6 +68,7 @@
 
         "wsl-cuichli" = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsLinux;
+          extraSpecialArgs = { pkgsAwscli = pkgsAwscliLinux; };
           modules = [
             ./home.nix
             ./machines/wsl-cuichli.nix
@@ -61,6 +77,7 @@
 
         "debian" = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsLinux;
+          extraSpecialArgs = { pkgsAwscli = pkgsAwscliLinux; };
           modules = [
             ./home.nix
             ./machines/debian.nix
@@ -70,7 +87,7 @@
 
       # Darwin (macOS) configurations
       darwinConfigurations."mac-mini" = nix-darwin.lib.darwinSystem {
-        specialArgs = { user = "cuichli"; };
+        specialArgs = { user = "cuichli"; pkgsAwscli = pkgsAwscliDarwin; };
         modules = [
           home-manager.darwinModules.home-manager
           ./machines/mac-mini.nix

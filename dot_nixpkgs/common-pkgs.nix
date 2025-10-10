@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgsAwscli ? pkgs, ... }:
 
 with pkgs;
 [
@@ -13,7 +13,7 @@ with pkgs;
   bat
   fzf
   jq
-  awscli2
+  pkgsAwscli.awscli2
   htop
   tldr
   shellcheck

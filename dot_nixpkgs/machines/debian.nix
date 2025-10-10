@@ -22,7 +22,7 @@
     nerd-fonts.ubuntu-sans
     maple-mono.CN
     copyq
-    zed
+    zed-editor
     vscode
     wemeet
   ];

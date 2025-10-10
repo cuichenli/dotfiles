@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, pkgsAwscli ? pkgs, ... }:
 
 let
-  commonPkgs = import ./common-pkgs.nix { inherit pkgs; };
+  commonPkgs = import ./common-pkgs.nix { inherit pkgs pkgsAwscli; };
   personalPkgs = import ./personal-pkgs.nix { inherit pkgs; };
   workPkgs = import ./work-pkgs.nix { inherit pkgs; };
   pkgsToInstall = if pkgs.stdenv.isLinux then personalPkgs ++ commonPkgs else workPkgs ++ commonPkgs;
