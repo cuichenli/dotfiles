@@ -18,9 +18,20 @@
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-awscli, home-manager, nix-darwin, ... }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixpkgs-awscli,
+      home-manager,
+      nix-darwin,
+      nix-flatpak,
+      ...
+    }:
     let
       pkgsLinux = import nixpkgs {
         system = "x86_64-linux";
@@ -59,7 +70,9 @@
       homeConfigurations = {
         "wsl-cuichen" = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsLinux;
-          extraSpecialArgs = { pkgsAwscli = pkgsAwscliLinux; };
+          extraSpecialArgs = {
+            pkgsAwscli = pkgsAwscliLinux;
+          };
           modules = [
             ./home.nix
             ./machines/wsl-cuichen.nix
@@ -68,7 +81,9 @@
 
         "wsl-cuichli" = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsLinux;
-          extraSpecialArgs = { pkgsAwscli = pkgsAwscliLinux; };
+          extraSpecialArgs = {
+            pkgsAwscli = pkgsAwscliLinux;
+          };
           modules = [
             ./home.nix
             ./machines/wsl-cuichli.nix
@@ -77,17 +92,52 @@
 
         "debian" = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsLinux;
-          extraSpecialArgs = { pkgsAwscli = pkgsAwscliLinux; };
+          extraSpecialArgs = {
+            pkgsAwscli = pkgsAwscliLinux;
+          };
           modules = [
             ./home.nix
             ./machines/debian.nix
+            nix-flatpak.homeManagerModules.nix-flatpak
+            {
+              services.flatpak = {
+                enable = true;
+                # remotes = {
+                #   "flathub" = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+                #   "flathub-beta" = "https://dl.flathub.org/beta-repo/flathub-beta.flatpakrepo";
+                # };
+                update = {
+                  auto = {
+                    enable = true;
+                  };
+                  onActivation = false;
+                };
+
+                uninstallUnused = true;
+                packages = [
+                  "org.telegram.desktop"
+                  "org.wezfurlong.wezterm"
+                  "us.zoom.Zoom"
+                  "io.bassi.Amberol"
+                  "dev.zed.Zed"
+                  "com.tencent.wemeet"
+                  "com.github.hluk.copyq"
+                  "app.zen_browser.zen"
+                  "com.slack.Slack"
+                ];
+              };
+
+            }
           ];
         };
       };
 
       # Darwin (macOS) configurations
       darwinConfigurations."mac-mini" = nix-darwin.lib.darwinSystem {
-        specialArgs = { user = "cuichli"; pkgsAwscli = pkgsAwscliDarwin; };
+        specialArgs = {
+          user = "cuichli";
+          pkgsAwscli = pkgsAwscliDarwin;
+        };
         modules = [
           home-manager.darwinModules.home-manager
           ./machines/mac-mini.nix
@@ -95,4 +145,3 @@
       };
     };
 }
-

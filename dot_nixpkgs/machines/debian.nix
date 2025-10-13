@@ -1,17 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, home-manager, ... }:
 
 {
   home.username = "cuichen";
   home.homeDirectory = "/home/cuichen";
-
-  i18n.inputMethod = {
-    type = "fcitx5";
-    enable = true;
-    fcitx5.addons = with pkgs; [
-      fcitx5-rime
-      fcitx5-chinese-addons
-    ];
-  };
 
   home.file = {
     "/home/cuichen/.local/share/fcitx5/rime/default.custom.yaml".source =
@@ -21,9 +12,5 @@
   home.packages = with pkgs; [
     nerd-fonts.ubuntu-sans
     maple-mono.CN
-    copyq
-    zed-editor
-    vscode
-    wemeet
   ];
 }
