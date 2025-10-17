@@ -35,7 +35,10 @@ in
     globalConfig = {
       tools = {
         node = "lts";
-        java = "temurin-21.0.8+9.0.LTS";
+        java = [
+        "temurin-21.0.8+9.0.LTS"
+        "graalvm-community-23.0.2"
+        ];
         gradle = "8.14.3";
       };
     };

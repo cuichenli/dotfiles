@@ -10,6 +10,7 @@ with pkgs;
   wget
   lnav
   nil
+  awscli2
   bat
   fzf
   jq
