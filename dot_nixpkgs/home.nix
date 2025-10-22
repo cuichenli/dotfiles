@@ -35,6 +35,7 @@ in
     globalConfig = {
       tools = {
         node = "lts";
+        go = "1.25.3";
         java = [
         "temurin-21.0.8+9.0.LTS"
         "graalvm-community-23.0.2"
