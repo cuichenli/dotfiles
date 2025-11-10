@@ -2,6 +2,7 @@
 
 with pkgs;
 [
+  jbang
   starship
   zoxide
   silver-searcher
