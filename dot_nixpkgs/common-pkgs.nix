@@ -2,6 +2,8 @@
 
 with pkgs;
 [
+  killport
+  oci-cli
   jbang
   starship
   zoxide

@@ -6,7 +6,10 @@
       ".vscode"
       ".tool-versions"
     ];
-    extraConfig = {
+    signing = {
+      format = null;
+    };
+    settings = {
       "includeIf \"gitdir:~/work/\"" = {
         path = "~/.gitconfig-work";
       };
