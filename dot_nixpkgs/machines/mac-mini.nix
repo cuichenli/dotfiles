@@ -4,6 +4,7 @@
   lib,
   xdg,
   user,
+  spr,
   home-manager,
   ...
 }:
@@ -95,6 +96,9 @@
   # Home Manager configuration
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
+  home-manager.extraSpecialArgs = {
+    inherit spr;
+  };
   home-manager.users.${user} = {
     imports = [ ../home.nix ];
     home.homeDirectory = "/Users/${user}";

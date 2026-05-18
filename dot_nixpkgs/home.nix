@@ -1,10 +1,18 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  spr ? null,
+  ...
+}:
 
 let
   commonPkgs = import ./common-pkgs.nix { inherit pkgs; };
   personalPkgs = import ./personal-pkgs.nix { inherit pkgs; };
   workPkgs = import ./work-pkgs.nix { inherit pkgs; };
-  pkgsToInstall = if pkgs.stdenv.isLinux then personalPkgs ++ commonPkgs else workPkgs ++ commonPkgs;
+  sprPkgs = lib.optionals (spr != null) [ spr.packages.${pkgs.stdenv.hostPlatform.system}.default ];
+  pkgsToInstall =
+    (if pkgs.stdenv.isLinux then personalPkgs ++ commonPkgs else workPkgs ++ commonPkgs) ++ sprPkgs;
 in
 {
   imports = [
@@ -13,11 +21,10 @@ in
   ];
   home.stateVersion = "23.05";
 
-  home.activation.mise-install = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation.mise-install = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     ${pkgs.mise}/bin/mise prune
     ${pkgs.mise}/bin/mise install
   '';
-
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -37,9 +44,9 @@ in
         node = "lts";
         go = "1.25.3";
         java = [
-        "temurin-21.0.8+9.0.LTS"
-        "graalvm-community-23.0.2"
-        "temurin-25.0.1+8.0.LTS"
+          "temurin-21.0.8+9.0.LTS"
+          "graalvm-community-23.0.2"
+          "temurin-25.0.1+8.0.LTS"
         ];
         gradle = "8.14.3";
       };

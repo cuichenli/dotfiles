@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "https://mirrors.ustc.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz";
 
+    spr = {
+      url = "git+https://github.com/ejoffe/spr.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,6 +29,7 @@
       home-manager,
       nix-darwin,
       nix-flatpak,
+      spr,
       ...
     }:
     let
@@ -55,6 +61,9 @@
       homeConfigurations = {
         "wsl-cuichen" = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsLinux;
+          extraSpecialArgs = {
+            inherit spr;
+          };
           modules = [
             ./home.nix
             ./machines/wsl-cuichen.nix
@@ -63,6 +72,9 @@
 
         "wsl-cuichli" = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsLinux;
+          extraSpecialArgs = {
+            inherit spr;
+          };
           modules = [
             ./home.nix
             ./machines/wsl-cuichli.nix
@@ -71,6 +83,9 @@
 
         "debian" = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsLinux;
+          extraSpecialArgs = {
+            inherit spr;
+          };
           modules = [
             ./home.nix
             ./machines/debian.nix
@@ -107,6 +122,7 @@
       darwinConfigurations."mac-mini" = nix-darwin.lib.darwinSystem {
         specialArgs = {
           user = "cuichli";
+          inherit spr;
         };
         modules = [
           home-manager.darwinModules.home-manager
