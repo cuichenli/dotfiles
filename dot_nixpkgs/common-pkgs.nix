@@ -7,7 +7,6 @@ with pkgs;
   jbang
   starship
   zoxide
-  silver-searcher
   delta
   maven
   wget
