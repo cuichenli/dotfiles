@@ -2,6 +2,7 @@
 
 with pkgs;
 [
+  kubefwd
   killport
   oci-cli
   jbang
