@@ -2,6 +2,7 @@
 
 with pkgs;
 [
+  herdr
   kubefwd
   killport
   oci-cli

@@ -4,7 +4,7 @@ with pkgs;
 [
   protobuf
   unzip
-  minikube
+  (lib.lowPrio minikube)
   k9s
   kubernetes-helm
   kubernetes
@@ -23,7 +23,6 @@ with pkgs;
   logdy
   kubectx
   kail
-  gemini-cli
   deno
   eksctl
 ]
