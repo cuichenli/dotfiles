@@ -2,6 +2,10 @@
 
 with pkgs;
 [
+  cargo-lambda
+  trivy
+  syft
+  grype
   herdr
   kubefwd
   killport

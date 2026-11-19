@@ -44,11 +44,9 @@ in
         node = "lts";
         go = "1.25.3";
         java = [
-          "temurin-21.0.8+9.0.LTS"
-          "graalvm-community-23.0.2"
           "temurin-25.0.1+8.0.LTS"
         ];
-        gradle = "8.14.3";
+        gradle = "9.8.1";
       };
     };
   };
